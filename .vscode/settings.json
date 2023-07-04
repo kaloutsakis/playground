@@ -45,6 +45,8 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "limits.h": "c",
-        "unistd.h": "c"
-    }
+        "unistd.h": "c",
+        "features.h": "c"
+    },
+    "C_Cpp.default.configurationProvider": "go2sh.cmake-integration"
 }
