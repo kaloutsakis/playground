@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-//#define __USE_XOPEN2K8
+// #define __USE_XOPEN2K8
 
 void fmt();
 
@@ -27,7 +27,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 
     printf("n    = %d\n", n);
     printf("path = %s\n", buf);
-    
+
     // printf("dir  = %s\n", dir);
 
     if (__linux__)

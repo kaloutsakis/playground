@@ -5,12 +5,13 @@ target_sources(fmt
 )
 
 target_compile_definitions(fmt
+    PRIVATE _GNU_SOURCE
     PRIVATE __NAME__="stelios"
     PRIVATE __SURNAME__="kaloutsakis"
 )
 
 target_compile_options(fmt
-    PRIVATE -std=gnu11
+    PRIVATE -std=c11
     PRIVATE -Wall
     PRIVATE -Wextra
 )

@@ -13,3 +13,4 @@ project(${THIS_PROJECT_NAME}
 
 add_subdirectory(pwd)
 add_subdirectory(fmt)
+add_subdirectory(timer)
