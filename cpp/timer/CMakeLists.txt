@@ -16,6 +16,7 @@ target_compile_definitions(${this}
     PRIVATE _GNU_SOURCE
     PRIVATE __NAME__="stelios"
     PRIVATE __SURNAME__="kaloutsakis"
+    PRIVATE PROC_NAME="timer"
 )
 
 target_compile_options(${this}

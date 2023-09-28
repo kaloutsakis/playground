@@ -12,7 +12,26 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#define trace(fp, level, format, ...)                                                                                                                 \
+    do                                                                                                                                                \
+    {                                                                                                                                                 \
+        typedef struct timespec timespec;                                                                                                             \
+        enum                                                                                                                                          \
+        {                                                                                                                                             \
+            NS_PRECISION = 9                                                                                                                          \
+        };                                                                                                                                            \
+        timespec ts = {0};                                                                                                                            \
+        char datetime[sizeof("YYYY_MM_DD HH:MM:SS")] = {'\0'};                                                                                        \
+        char nanosecs[sizeof("NNNNNNNNN")] = {'\0'};                                                                                                  \
+        timespec_get(&ts, TIME_UTC);                                                                                                                  \
+        strftime(datetime, sizeof(datetime), "%F %T", localtime(&ts.tv_sec));                                                                         \
+        sprintf(nanosecs, "%09lu", ts.tv_nsec);                                                                                                       \
+        fprintf(fp, "%s.%.*s %s %s(%d) :: <%s> " format "\n", datetime, NS_PRECISION, nanosecs, PROC_NAME, __func__, __LINE__, level, ##__VA_ARGS__); \
+        fflush(fp);                                                                                                                                   \
+    } while (false)
+
 static inline void tc_1(int argc, char *argv[]);
+static inline void tc_2(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +41,11 @@ int main(int argc, char *argv[])
     if (true)
     {
         tc_1(argc, argv);
+    }
+
+    if (true)
+    {
+        tc_2(argc, argv);
     }
 
     return EXIT_SUCCESS;
@@ -75,4 +99,15 @@ void tc_1(int argc, char *argv[])
             fprintf(stdout, "\n");
         }
     }
+}
+
+void tc_2(int argc, char *argv[])
+{
+    (void)argc;
+    (void)argv;
+
+    trace(stdout, "info", "Starting %s", __func__);
+    FILE *log = fopen("timer.log", "a");
+    trace(log, "info", "Compiled at %s", __TIMESTAMP__);
+    fclose(log);
 }
